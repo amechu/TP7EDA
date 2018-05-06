@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Observers">
+      <UniqueIdentifier>{4dbc373d-b6eb-4c34-8dfd-3cb21bbedd16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Subjects">
+      <UniqueIdentifier>{0f7ae641-dbd0-4252-8a1c-69a94938ca36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Subjects">
+      <UniqueIdentifier>{57fb00bd-9bcb-44a2-b4e9-75acc49947da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Drawing">
+      <UniqueIdentifier>{0b1d1e18-6a1c-4120-bc73-faf14292de18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Drawing">
+      <UniqueIdentifier>{f9e0a2c7-c514-4c3b-b9b1-4243fc1645d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network">
+      <UniqueIdentifier>{ba32b163-5580-4579-a126-9f585c472e5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Events">
+      <UniqueIdentifier>{08c56381-2f52-4a93-a1a6-3727cc0d0292}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Events">
+      <UniqueIdentifier>{fc727466-1a79-41c8-b88d-e21006ceccc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Misc">
+      <UniqueIdentifier>{e39d4095-3674-4973-a185-ab5bf9b4c0a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Observers">
+      <UniqueIdentifier>{c12611b7-7bb6-4bca-82d3-552a693dc969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network">
+      <UniqueIdentifier>{bd7410ec-9eac-47b3-ab84-eb5deb552216}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Misc">
+      <UniqueIdentifier>{ce183d84-c6e8-459e-9c76-8db72f922b5f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Source Files\Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawer.cpp">
+      <Filter>Source Files\Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="Sender.cpp">
+      <Filter>Source Files\Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Source Files\Subjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenario.cpp">
+      <Filter>Source Files\Subjects</Filter>
+    </ClCompile>
+    <ClCompile Include="AllegroTools.cpp">
+      <Filter>Source Files\Drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="Dispatcher.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="EventGenerator.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawingInfo.cpp">
+      <Filter>Source Files\Drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Worm.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Network.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Parser.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Observer.h">
+      <Filter>Header Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sender.h">
+      <Filter>Header Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawer.h">
+      <Filter>Header Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenario.h">
+      <Filter>Header Files\Subjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Header Files\Subjects</Filter>
+    </ClInclude>
+    <ClInclude Include="AllegroTools.h">
+      <Filter>Header Files\Drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="Dispatcher.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="EventGenerator.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="EventHandling.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawingInfo.h">
+      <Filter>Header Files\Drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="Worm.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSettings.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Network.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Parser.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Scenario.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="stars.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F14.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F15.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="montserrat.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="DireccionesIP.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
