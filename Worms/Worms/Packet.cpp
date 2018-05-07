@@ -14,6 +14,7 @@ using namespace gameSettings;
 std::string Packet::makePacket(uint8_t header, uint16_t action, uint32_t id, uint16_t pos)
 {
 	std::string string;
+	uint8_t* p2num = (uint8_t*)&id;
 
 	switch (header) {
 	case QUIT_:
@@ -33,7 +34,9 @@ std::string Packet::makePacket(uint8_t header, uint16_t action, uint32_t id, uin
 	case ACK_:
 		string = ACK_;
 		this->header = ACK_;
-		string += (idToBigEndian(&id));
+		for (int i = 0; i < 4; i++) {
+			string += p2num[i];
+		}
 		this->id = id;
 		break;
 	case MOVE_:
@@ -41,7 +44,9 @@ std::string Packet::makePacket(uint8_t header, uint16_t action, uint32_t id, uin
 		this->header = MOVE_;
 		string += action;
 		this->action = action;
-		string += (idToBigEndian(&id));
+		for (int i = 0; i < 4; i++) {
+			string += p2num[i];
+		}
 		this->id = id;
 		break;
 	}

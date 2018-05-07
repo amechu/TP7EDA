@@ -157,7 +157,6 @@ void Network::sendInfo(std::string msg)
 		lenght = this->socket->write_some(boost::asio::buffer(msg, msg.size()), error);
 
 	} while (error);
-
 }
 
 void Network::acceptOrResolve(std::string port)
@@ -191,7 +190,6 @@ Packet Network::listen()
 				if (lastPacketRecieved.header == IAMRDY) {
 					otherWormPos = lastPacketRecieved.pos;
 					run(READY_RECEIVED);
-					estado = WAIT_REQUEST;
 					cout << "ESTADO = WAIT_REQUEST" << endl; //DEBUG
 				}
 				else {
@@ -199,6 +197,7 @@ Packet Network::listen()
 				}
 			}
 			else if (getIfHost() == gameSettings::CLIENT) {
+				this->estado = WAIT_READY;
 				lastPacketRecieved = waitReady();
 				if (lastPacketRecieved.header == IAMRDY) {
 					otherWormPos = lastPacketRecieved.pos;
@@ -270,7 +269,14 @@ Packet Network::run(int ev)
 	case WAIT_READY:
 		switch (ev) {
 		case READY_RECEIVED:
-			lastPacketSent = sendAckr();
+			if (getIfHost() == gameSettings::HOST) {
+				lastPacketSent = sendAckr();
+				this->estado = WAIT_REQUEST;
+			}
+			else if (getIfHost() == gameSettings::CLIENT) {
+				lastPacketSent = sendReady();
+				this->estado = WAIT_ACK;
+			}
 			break;
 		default:
 			estado = SHUTDOWN;
@@ -286,6 +292,7 @@ Packet Network::run(int ev)
 			lastPacketSent = sendAck();
 			break;
 		}
+		break;
 	default:
 		estado = SHUTDOWN;
 		cout << "ESTADO = SHUTDOWN" << endl; //DEBUG
@@ -349,9 +356,9 @@ Packet Network::waitRequest() {
 		lastPacketRecieved.action = string[1];
 		pointer = (uint8_t*)(&lastPacketRecieved.id);
 		for (int j = 0; j < 4; j++) {
-			pointer[j] = string[5 - j];
+			pointer[j] = string[j + 2];
 		}
-		if (lastPacketRecieved.id == (0xFFFFFFFE)) {
+		if (lastPacketRecieved.id == (0x0)) {
 			lastPacketRecieved = run(MOVE_REQUEST_RECEIVED);
 		}
 		else {
@@ -383,42 +390,6 @@ Packet Network::waitAck() {
 	lastPacketRecieved.header = 0;
 	static bool first = true;
 
-	if (getLastEvent() == READY_RECEIVED || getLastEvent() == QUIT_REQUEST_RECEIVED) {
-
-		do {
-			cout << "WAITING ACK READY OR QUIT" << endl; //DEBUG
-			if (first) {
-				first = false;
-				socket->non_blocking(true);
-			}
-			string = getInfoTimed(gameSettings::networkTimeLimit);
-			if ((string.c_str())[0] == (char)(ACK_)) {
-				cout << "GOT ACK" << endl; //DEBUG
-				good = true;
-				if (!(string[1] == 0))
-					good = false;
-				if (getLastEvent() == READY_RECEIVED) {
-					lastPacketRecieved.header = ACK_;
-				}
-				else {
-					lastPacketRecieved.header = QUIT_;
-				}
-
-				if (good) {
-					lastPacketRecieved.id = 0;
-					run(ACK_RECEIVED);
-				}
-				else {
-					lastPacketRecieved = run(NET_ERROR);
-				}
-			}
-			else {
-				lastPacketRecieved = run(NET_ERROR);
-			}
-			i++;
-		} while (i < 5 && !good);
-	}
-	else {
 		do {
 			cout << "WAITING ACK" << endl; //DEBUG
 			string = getInfo();
@@ -426,10 +397,10 @@ Packet Network::waitAck() {
 				cout << "GOT ACK" << endl; //DEBUG
 				good = true;
 				pointer = (uint8_t*)(&(lastPacketRecieved.id));
-				for (int j = 1; j < 5; j++) {
-					pointer[j - 1] = string[5 - j];
+				for (int j = 0; j < 4; j++) {
+					pointer[j] = string[j + 2];
 				}
-				if (lastPacketRecieved.id == (0xFFFFFFFE)) {
+				if (lastPacketRecieved.id == (0x0)) {
 					lastPacketRecieved = run(ACK_RECEIVED);
 				}
 				else {
@@ -445,7 +416,7 @@ Packet Network::waitAck() {
 		if (!good) {
 			lastPacketRecieved.header = 0;
 		}
-	}
+
 	return lastPacketRecieved;
 }
 
@@ -549,7 +520,7 @@ Packet Network::errorComm()
 Packet Network::sendAck()
 {
 	if (getLastEvent() == MOVE_REQUEST_RECEIVED) {
-		sendInfo(lastPacketSent.makePacket(ACK_, 0, (getLastPacketSent()).id, 0));
+		sendInfo(lastPacketSent.makePacket(ACK_, 0, 0, 0));
 		cout << "SENT ACK MOVE" << endl; //DEBUG
 	}
 	else if (getLastEvent() == QUIT_REQUEST_RECEIVED) {

@@ -79,7 +79,7 @@ void Dispatcher::Dispatch(Event Event, Scenario* Scene, AllegroTools* allegroToo
 		break;
 	}
 	case NEWWORM: {
-		Scene->createNewWorm(1, { (double)Event.id, gameSettings::GroundLevel }, WormDirection::Left);
+		Scene->createNewWorm(1, { (double)Event.id, gameSettings::GroundLevel}, WormDirection::Left);
 		cout << "NEWWORM" << endl; //DEBUG
 		break;
 	}

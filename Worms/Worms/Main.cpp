@@ -51,21 +51,22 @@ int main(int argc, char* argv[]) {
 		if (Network.getIfHost() != QUITTER) 
 		{
 
-			Scene.createNewWorm(0, { gameSettings::LeftWall + 200 , gameSettings::GroundLevel }, WormDirection::Right);
-
-			Network.myWormPos = Scene.myWormPos;
-
 			if (Network.getIfHost() == HOST) {
 				//drawwaitingforsomebody()
+				Scene.createNewWorm(0, { gameSettings::LeftWall + 400 , gameSettings::GroundLevel }, WormDirection::Left);
 				Network.createLineServer();
 			}
 			else {
 				//drawtryingtoconnect()
+				Scene.createNewWorm(0, { gameSettings::LeftWall + 100 , gameSettings::GroundLevel }, WormDirection::Right);
 				Network.createLineClient(Network.getOtherIP(), gameSettings::port);
 			}
 
+				Network.myWormPos = Scene.myWormPos;
+
 			while (Event.type != QUIT && (Network.getIfHost() != gameSettings::QUITTER))
 			{
+
 				cout << "Network Protocol" << endl; //DEBUG
 				Network.networkProtocol();
 

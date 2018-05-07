@@ -25,5 +25,6 @@ private:
 	Timer Timer;
 	bool sentMove = false;
 	bool firstMove = true;
+	bool otherWormCreated = false;
 };
 

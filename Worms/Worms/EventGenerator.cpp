@@ -180,9 +180,12 @@ Event EventGenerator::transformNetworkEvent(Network* Network)
 	}
 	else if ((Packet.header == ACK_) && (Packet.id == 0)) // caso del primer i'm ready
 	{
-		Event.type = NEWWORM; //ME LLEGO EL ACK QUE ENTENDIO CREO EL WORM
-		Event.id = Network->getOtherWormPos();
-		cout << "TRANSFORM NEWWORM" << endl; //DEBUG
+		if (!otherWormCreated) {
+			Event.type = NEWWORM; //ME LLEGO EL ACK QUE ENTENDIO CREO EL WORM
+			Event.id = Network->getOtherWormPos();
+			otherWormCreated = true;
+			cout << "TRANSFORM NEWWORM" << endl; //DEBUG
+		}
 	}
 	else if ((Packet.header == ERROR_))
 	{
@@ -210,7 +213,21 @@ Event EventGenerator::transformNetworkEvent(Network* Network)
 
 void EventGenerator::checkIncomingEvents(AllegroTools * allegroTools, Network * Network)
 {
-	pushEvent(transformAllegroEvent(allegroTools));
-	pushEvent(transformNetworkEvent(Network));
+	Event ev;
+
+	ev = transformAllegroEvent(allegroTools);
+	if (ev.type != NOEVENT) {
+		pushEvent(ev);
+	}
+	else {
+		al_flush_event_queue(allegroTools->Queue);
+	}
+	ev = transformNetworkEvent(Network);
+	if (ev.type != NOEVENT) {
+		pushEvent(ev);
+	}
+	else {
+		al_flush_event_queue(allegroTools->Queue);
+	}
 }
 
