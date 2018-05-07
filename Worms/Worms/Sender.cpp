@@ -39,6 +39,7 @@ void Sender::update(void * subject, void* tool)
 			break;
 		case QUITLOCAL:
 			Packet.header = QUIT_;
+			Packet.id = 0;
 		}
 		network->pushToSend(Packet);
 	}
