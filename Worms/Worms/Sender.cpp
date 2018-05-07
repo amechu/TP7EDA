@@ -19,23 +19,23 @@ void Sender::update(void * subject, void* tool)
 		case REFRESHLEFT:
 			Packet.header = MOVE_;
 			Packet.action = ACTIONLEFT;
-			Packet.id = (uint32_t)(rand());
+			Packet.id = (0xFFFFFFFE);
 			break;
 		case REFRESHRIGHT:
 			Packet.header = MOVE_;
 			Packet.action = ACTIONRIGHT;
-			Packet.id = (uint32_t)(rand());
+			Packet.id = (0xFFFFFFFE);
 			break;
 		case JUMP:
 			Packet.header = MOVE_;
 			Packet.action = ACTIONJUMP;
-			Packet.id = (uint32_t)(rand());
+			Packet.id = (0xFFFFFFFE);
 			break;
 		case TOGGLELEFT:
 		case TOGGLERIGHT:
 			Packet.header = MOVE_;
 			Packet.action = ACTIONTOGGLE;
-			Packet.id = (uint32_t)(rand());
+			Packet.id = (0xFFFFFFFE);
 			break;
 		case QUITLOCAL:
 			Packet.header = QUIT_;

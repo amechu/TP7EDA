@@ -52,7 +52,8 @@ public:
 	int getLastEvent();
 	int getState();
 	void setLastEvent(int ev);
-	Packet getPacket(); //Devuelve el packete auxiliar
+	Packet getLastPacketRecieved(); //Devuelve el packete auxiliar
+	Packet getLastPacketSent(); //Devuelve el packete auxiliar
 	void setIfHost(int imhost); //Setea si uno es server o no
 	std::string getOwnIP(); //Devuelve propia ip
 	std::string getOtherIP(); //Devuelve la ip ajena
@@ -66,6 +67,9 @@ public:
 	Packet errorComm();
 	Packet sendAck();
 	Packet reSend();
+
+	//Misc
+	Point myWormPos;
 
 private:
 
@@ -90,7 +94,8 @@ private:
 	int lastEvent;
 
 	//Auxiliary packet for storage
-	Packet packet;
+	Packet lastPacketSent;
+	Packet lastPacketRecieved;
 
 	//Constants
 	const std::string TIMEOUT = "timeout";

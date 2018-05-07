@@ -26,7 +26,7 @@ public:
 	void setWormState(Event event, WormState state);
 	Worm& getWorm(int id);
 	WormState getWormState(Event event);
-
+	Point myWormPos;
 	std::vector<Worm> getWormList();
 
 

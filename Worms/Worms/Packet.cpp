@@ -18,22 +18,31 @@ std::string Packet::makePacket(uint8_t header, uint16_t action, uint32_t id, uin
 	switch (header) {
 	case QUIT_:
 		string = QUIT_;
+		this->header = QUIT_;
 		break;
 	case ERROR_:
 		string = ERROR_;
+		this->header = ERROR_;
 		break;
 	case IAMRDY:
 		string = IAMRDY;
+		this->header = IAMRDY;
 		string += (posToBigEndian(&pos));
+		this->pos = pos;
 		break;
 	case ACK_:
 		string = ACK_;
+		this->header = ACK_;
 		string += (idToBigEndian(&id));
+		this->id = id;
 		break;
 	case MOVE_:
 		string = MOVE_;
+		this->header = MOVE_;
 		string += action;
+		this->action = action;
 		string += (idToBigEndian(&id));
+		this->id = id;
 		break;
 	}
 

@@ -14,6 +14,9 @@ void Scenario::createNewWorm(unsigned int id, Point position, WormDirection dire
 {
 	Worm* worm = new Worm(id, position, direction);
 	this->Worms.push_back(*worm);
+	if (id == 0) {
+		this->myWormPos = position;
+	}
 }
 
 void Scenario::destroyWorm(unsigned int id)

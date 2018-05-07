@@ -31,8 +31,6 @@ int main(int argc, char* argv[]) {
 	Scenario Scene;
 	Drawer Drawer;
 	Sender Sender(&Network);
-
-	srand(time(NULL));
 	
 	Scene.registerObserver(&Drawer);
 	Scene.registerObserver(&Sender);
@@ -54,6 +52,8 @@ int main(int argc, char* argv[]) {
 		{
 
 			Scene.createNewWorm(0, { gameSettings::LeftWall + 200 , gameSettings::GroundLevel }, WormDirection::Right);
+
+			Network.myWormPos = Scene.myWormPos;
 
 			if (Network.getIfHost() == HOST) {
 				//drawwaitingforsomebody()
