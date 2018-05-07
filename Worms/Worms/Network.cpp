@@ -357,7 +357,7 @@ Packet Network::waitRequest() {
 		good = true;
 		this->packet.header = MOVE_;
 		this->packet.action = string[1];
-		pointer = (uint8_t*)(&Packet.id);
+		pointer = (uint8_t*)(&packet.id);
 		for (int j = 0; j < 4; j++) {
 			pointer[j] = string[5 - j];
 		}

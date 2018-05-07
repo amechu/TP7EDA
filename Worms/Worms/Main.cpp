@@ -12,6 +12,10 @@
 //Falta: Todo lo de networking, desde mandar paquetes hasta armarlos hasta ver que hacer con el evento quit, o crear worm nuevo a partir de una coneccion.
 //Considerar: los eventos en EventHandling.h que son refresh+algo son para el worm local y generados por allegro, los que son solo algo son para todos
 //los demas worms de networking.
+
+
+//SACAR RANDOM DE LOS ID, SACAR PACKET DE NETWORK QUE HAY UN packet y un Packet.
+
 using namespace std;
 int main(int argc, char* argv[]) {
 
