@@ -30,12 +30,10 @@ Event EventGenerator::transformAllegroEvent(AllegroTools * allegroTools)
 	ALLEGRO_EVENT allegroEvent;
 	Event Event = { NOEVENT , 0 };
 
-	cout << "TRANSFORM ALLEGRO EVENT" << endl; //DEBUG
 	if (al_get_next_event(allegroTools->Queue, &allegroEvent)) {
 
 		if (allegroEvent.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 			Event.type = QUITLOCAL;
-			cout << "TRANSFORMED QUITLOCAL" << endl; //DEBUG
 		}
 
 		else if (allegroEvent.type == ALLEGRO_EVENT_TIMER) {
@@ -48,16 +46,13 @@ Event EventGenerator::transformAllegroEvent(AllegroTools * allegroTools)
 				}
 				else {
 					Event.type = REFRESH;
-					cout << "TRANSFORM REFRESH" << endl; //DEBUG
 				}
 				if (!sentMove) {
 					Event.type = REFRESHLEFT;
-					cout << "TRANSFORM REFRESHLEFT" << endl; //DEBUG
 					sentMove = true;
 				}
 				else {
 					Event.type = REFRESH;
-					cout << "TRANSFORM REFRESH" << endl; //DEBUG
 				}
 			}
 			else if (activeTimer[gameSettings::Right] == true && Timer.getTime() >= 100) {
@@ -68,16 +63,13 @@ Event EventGenerator::transformAllegroEvent(AllegroTools * allegroTools)
 				}
 				else {
 					Event.type = REFRESH;
-					cout << "REFRESH" << endl; //DEBUG
 				}
 				if (!sentMove) {
 					Event.type = REFRESHRIGHT;
-					cout << "TRANSFORM REFRESHRIGHT" << endl; //DEBUG
 					sentMove = true;
 				}
 				else {
 					Event.type = REFRESH;
-					cout << "TRANSFORM REFRESH" << endl; //DEBUG
 				}
 			}
 			else {
@@ -85,7 +77,6 @@ Event EventGenerator::transformAllegroEvent(AllegroTools * allegroTools)
 					activeTimer[gameSettings::Jump] = false;
 				}
 				Event.type = REFRESH;
-				cout << "TRANSFORM REFRESH" << endl; //DEBUG
 			}
 		}
 
@@ -106,7 +97,6 @@ Event EventGenerator::transformAllegroEvent(AllegroTools * allegroTools)
 				if (activeTimer[gameSettings::Left] == false && activeTimer[gameSettings::Right] == false) {
 					activeTimer[gameSettings::Jump] = true;
 					Event.type = JUMP;
-					cout << "TRANSFORM JUMP" << endl; //DEBUG
 					Timer.start();
 				}
 			}
@@ -117,7 +107,6 @@ Event EventGenerator::transformAllegroEvent(AllegroTools * allegroTools)
 				if (activeTimer[gameSettings::Left] == true) {
 					if (Timer.getTime() < 100) {
 						Event.type = TOGGLELEFT;
-						cout << "TRANSFORM TOGGLELEFT" << endl; //DEBUG
 					}
 				}
 				activeTimer[gameSettings::Left] = false;
@@ -128,7 +117,6 @@ Event EventGenerator::transformAllegroEvent(AllegroTools * allegroTools)
 				if (activeTimer[gameSettings::Right] == true) {
 					if (Timer.getTime() < 100) {
 						Event.type = TOGGLERIGHT;
-						cout << "TRANSFORM TOGGLERIGHT" << endl; //DEBUG
 					}
 				}
 				activeTimer[gameSettings::Right] = false;
@@ -142,7 +130,6 @@ Event EventGenerator::transformAllegroEvent(AllegroTools * allegroTools)
 	}
 	else {
 		Event.type = NOEVENT;
-		cout << "TRANSFORM NOEVENT" << endl; //DEBUG
 	}
 
 	return Event;
@@ -154,28 +141,23 @@ Event EventGenerator::transformNetworkEvent(Network* Network)
 	Packet Packet;
 	Packet = Network->fetchRecieved();
 
-	cout << "TRANSFORMING NETWORK EVENT" << endl; //DEBUG
 	if (Packet.header == MOVE_)
 	{
 		if (Packet.action == ACTIONLEFT)
 		{
 			Event.type = LEFT;
-			cout << "TRANSFORM LEFT" << endl; //DEBUG
 		}
 		else if (Packet.action == ACTIONRIGHT)
 		{
 			Event.type = RIGHT;
-			cout << "TRANSFORM RIGHT" << endl; //DEBUG
 		}
 		else if (Packet.action == ACTIONJUMP)
 		{
 			Event.type = JUMP;
-			cout << "TRANSFORM JUMP" << endl; //DEBUG
 		}
 		else if (Packet.action == ACTIONTOGGLE)
 		{
 			Event.type = TOGGLE;
-			cout << "TRANSFORM TOGGLE" << endl; //DEBUG
 		}
 	}
 	else if ((Packet.header == ACK_) && (Packet.id == 0)) // caso del primer i'm ready
@@ -184,18 +166,15 @@ Event EventGenerator::transformNetworkEvent(Network* Network)
 			Event.type = NEWWORM; //ME LLEGO EL ACK QUE ENTENDIO CREO EL WORM
 			Event.id = Network->getOtherWormPos();
 			otherWormCreated = true;
-			cout << "TRANSFORM NEWWORM" << endl; //DEBUG
 		}
 	}
 	else if ((Packet.header == ERROR_))
 	{
 		Event.type = QUIT;
-		cout << "TRANSFORM QUIT" << endl; //DEBUG
 	}
 	else if ((Packet.header == QUIT_))
 	{
 		Event.type = QUIT;
-		cout << "TRANSFORM QUIT" << endl; //DEBUG
 	}
 	else if ((Packet.header == IAMRDY)) // caso del primer i'm ready
 	{
@@ -203,13 +182,11 @@ Event EventGenerator::transformNetworkEvent(Network* Network)
 			otherWormCreated = true;
 			Event.type = NEWWORM; //ME LLEGO EL ACK QUE ENTENDIO CREO EL WORM
 			Event.id = Network->getOtherWormPos();
-			cout << "TRANSFORM NEWWORM" << endl; //DEBUG
 		}
 	}
 	else
 	{
 		Event.type = NOEVENT;
-		cout << "TRANSFORM NO EVENT" << endl; //DEBUG
 	}
 	return Event;
 }

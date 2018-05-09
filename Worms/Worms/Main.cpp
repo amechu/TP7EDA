@@ -68,30 +68,25 @@ int main(int argc, char* argv[]) {
 			while (Event.type != QUIT && (Network.getIfHost() != gameSettings::QUITTER))
 			{
 
-				cout << "Network Protocol" << endl; //DEBUG
 				Network.networkProtocol();
 
-				cout << "Cheking Events" << endl; //DEBUG
 				EventGenerator.checkIncomingEvents(&AllegroTools, &Network);
 
 				for (int i = 0; i < 2; i++) {
 
 					if (!(EventGenerator.eventQueue.empty())) {
-						cout << "Fetching Events" << endl; //DEBUG
 						Event = EventGenerator.fetchEvent();
 
 						if (Event.type != NOEVENT) {
-							cout << "Dispatching.." << endl; //DEBUG
 							Dispatcher.Dispatch(Event, &Scene, &AllegroTools);
-							cout << "Dispatched" << endl; //DEBUG
 						}
 						else {
-							cout << "NOT DISPATCHED -- NOEVENT" << endl; //DEBUG
 						}
 					}
 				}
 			}
 		}
 	}
+	cin.get();
 	return 0;
 }

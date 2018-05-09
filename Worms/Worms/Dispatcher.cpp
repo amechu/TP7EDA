@@ -18,32 +18,26 @@ void Dispatcher::Dispatch(Event Event, Scenario* Scene, AllegroTools* allegroToo
 	switch (Event.type) {
 	case JUMP: {
 		Scene->Jump(Event, allegroTools);
-		cout << "JUMP" << endl; //DEBUG
 		break;
 	}
 	case TOGGLE: {
 		Scene->Toggle(Event, allegroTools, WormDirection::Left); //direction unused
-		cout << "TOGGLE" << endl; //DEBUG
 		break;
 	}
 	case TOGGLELEFT: {
 		Scene->Toggle(Event, allegroTools, WormDirection::Left);
-		cout << "TOGGLELEFT" << endl; //DEBUG
 		break;
 	}
 	case TOGGLERIGHT: {
 		Scene->Toggle(Event, allegroTools, WormDirection::Right);
-		cout << "TOGGLERIGHT" << endl; //DEBUG
 		break;
 	}
 	case RIGHT: {
 		Scene->moveRight(Event, allegroTools);
-		cout << "RIGHT" << endl; //DEBUG
 		break;
 	}
 	case LEFT: {
 		Scene->moveLeft(Event, allegroTools);
-		cout << "LEFT" << endl; //DEBUG
 		break;
 	}
 	case REFRESHRIGHT: {
@@ -53,7 +47,6 @@ void Dispatcher::Dispatch(Event Event, Scenario* Scene, AllegroTools* allegroToo
 		}
 		Scene->setLastAction(REFRESHRIGHT, LOCAL);
 		Scene->Refresh(allegroTools);
-		cout << "REFRESHRIGHT" << endl; //DEBUG
 		break;
 	}
 	case REFRESHLEFT: {
@@ -63,27 +56,22 @@ void Dispatcher::Dispatch(Event Event, Scenario* Scene, AllegroTools* allegroToo
 		}
 		Scene->setLastAction(REFRESHLEFT, LOCAL);
 		Scene->Refresh(allegroTools);
-		cout << "REFRESHLEFT" << endl; //DEBUG
 		break;
 	}
 	case REFRESH: {
 		Scene->setLastAction(REFRESH, LOCAL);
 		Scene->Refresh(allegroTools);
-		cout << "REFRESH" << endl; //DEBUG
 		break;
 	}
 	case QUITLOCAL: {
 		Scene->Quit(allegroTools);
-		cout << "QUIT" << endl; //DEBUG
 		break;
 	}
 	case NOEVENT: {
-		cout << "NOEVENT" << endl; //DEBUG
 		break;
 	}
 	case NEWWORM: {
 		Scene->createNewWorm(1, { (double)Event.id, gameSettings::GroundLevel}, WormDirection::Left);
-		cout << "NEWWORM" << endl; //DEBUG
 		break;
 	}
 
