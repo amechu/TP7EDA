@@ -199,9 +199,12 @@ Event EventGenerator::transformNetworkEvent(Network* Network)
 	}
 	else if ((Packet.header == IAMRDY)) // caso del primer i'm ready
 	{
-		Event.type = NEWWORM; //ME LLEGO EL ACK QUE ENTENDIO CREO EL WORM
-		Event.id = Network->getOtherWormPos();
-		cout << "TRANSFORM NEWWORM" << endl; //DEBUG
+		if (!otherWormCreated) {
+			otherWormCreated = true;
+			Event.type = NEWWORM; //ME LLEGO EL ACK QUE ENTENDIO CREO EL WORM
+			Event.id = Network->getOtherWormPos();
+			cout << "TRANSFORM NEWWORM" << endl; //DEBUG
+		}
 	}
 	else
 	{

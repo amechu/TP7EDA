@@ -180,7 +180,6 @@ int AllegroTools::askIfHost()
 	} while (selection == NONE);
 
 	al_unregister_event_source(this->Queue, al_get_mouse_event_source());
-	al_flush_event_queue(this->Queue);
 
 	return selection;
 }

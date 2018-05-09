@@ -29,7 +29,9 @@ void Network::networkProtocol()
 {
 	cout << "Network LISTEN" << endl; //DEBUG
 	lastPacketRecieved = listen(); //corre la fsm hasta que vuelva al estado inicial.
-	pushToRecieved(lastPacketRecieved);
+	if (lastPacketRecieved.header != 0) {
+		pushToRecieved(lastPacketRecieved);
+	}
 	if (!toSend.empty()) { //si hay algo para decir, lo manda
 		lastPacketSent = fetchToSend();
 		cout << "Network SAY" << endl; //DEBUG

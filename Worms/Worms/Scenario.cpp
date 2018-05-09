@@ -107,6 +107,7 @@ void Scenario::Refresh(AllegroTools* allegroTools)
 		worm.refresh();
 	}
 	this->lastAction.id = REFRESH;
+	this->lastAction.origin = LOCAL;
 	this->notify(allegroTools);
 }
 

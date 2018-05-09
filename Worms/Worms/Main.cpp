@@ -63,6 +63,7 @@ int main(int argc, char* argv[]) {
 			}
 
 				Network.myWormPos = Scene.myWormPos;
+				al_flush_event_queue(AllegroTools.Queue);
 
 			while (Event.type != QUIT && (Network.getIfHost() != gameSettings::QUITTER))
 			{
