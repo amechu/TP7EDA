@@ -16,6 +16,9 @@ public:
 
 	bool Init();
 	int askIfHost();
+	void drawWaitingForSomebody();
+	void drawTryingToConnect();
+	void drawOtherOneQuitted();
 	void drawBigButton(std::string msg, int x, int y, ALLEGRO_BITMAP * bitmap, std::string color, bool selected);
 	void drawSmallButton(std::string msg, int x, int y, ALLEGRO_BITMAP * bitmap, std::string color, bool selected);
 

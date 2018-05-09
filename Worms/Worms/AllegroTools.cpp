@@ -184,6 +184,40 @@ int AllegroTools::askIfHost()
 	return selection;
 }
 
+void AllegroTools::drawWaitingForSomebody()
+{
+	al_draw_filled_rectangle((gameSettings::SCREEN_W / 4), (3*gameSettings::SCREEN_H / 8), (3 * gameSettings::SCREEN_W / 4), (5 * gameSettings::SCREEN_H / 8), (al_map_rgb(0, 0, 0)));
+	al_draw_text(this->Font, al_color_name("white"), gameSettings::SCREEN_W / 2, gameSettings::SCREEN_H / 2 - 12, ALLEGRO_ALIGN_CENTRE, "Waiting for somebody to connect..");
+	al_flip_display();
+}
+
+void AllegroTools::drawTryingToConnect()
+{
+	al_draw_filled_rectangle((gameSettings::SCREEN_W / 4), (3*gameSettings::SCREEN_H / 8), (3 * gameSettings::SCREEN_W / 4), (5 * gameSettings::SCREEN_H / 8), (al_map_rgb(0, 0, 0)));
+	al_draw_text(this->Font, al_color_name("white"), gameSettings::SCREEN_W / 2, gameSettings::SCREEN_H / 2 - 12, ALLEGRO_ALIGN_CENTRE, "Trying to connect..");
+	al_flip_display();
+}
+
+void AllegroTools::drawOtherOneQuitted()
+{
+	al_clear_to_color(al_map_rgb(0, 0, 0));
+	al_draw_text(this->Font, al_color_name("white"), gameSettings::SCREEN_W / 2, gameSettings::SCREEN_H / 2 - 12, ALLEGRO_ALIGN_CENTRE, "The other player has quit.");
+	al_rest(2);
+	al_flip_display();
+	al_clear_to_color(al_map_rgb(0, 0, 0));
+	al_draw_text(this->Font, al_color_name("white"), gameSettings::SCREEN_W / 2, gameSettings::SCREEN_H / 2 - 12, ALLEGRO_ALIGN_CENTRE, "Quitting in 3..");
+	al_rest(1);
+	al_flip_display();
+	al_clear_to_color(al_map_rgb(0, 0, 0));
+	al_draw_text(this->Font, al_color_name("white"), gameSettings::SCREEN_W / 2, gameSettings::SCREEN_H / 2 - 12, ALLEGRO_ALIGN_CENTRE, "Quitting in 2..");
+	al_rest(1);
+	al_flip_display();
+	al_clear_to_color(al_map_rgb(0, 0, 0));
+	al_draw_text(this->Font, al_color_name("white"), gameSettings::SCREEN_W / 2, gameSettings::SCREEN_H / 2 - 12, ALLEGRO_ALIGN_CENTRE, "Quitting in 1..");
+	al_rest(2);
+	al_flip_display();
+}
+
 void AllegroTools::drawBigButton(std::string msg, int x, int y, ALLEGRO_BITMAP* bitmap, std::string color, bool selected)
 {
 	ALLEGRO_BITMAP* disp = al_get_target_bitmap();

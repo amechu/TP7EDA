@@ -52,13 +52,13 @@ int main(int argc, char* argv[]) {
 		{
 
 			if (Network.getIfHost() == HOST) {
-				//drawwaitingforsomebody()
-				Scene.createNewWorm(0, { gameSettings::LeftWall + 400 , gameSettings::GroundLevel }, WormDirection::Left);
+				AllegroTools.drawWaitingForSomebody();
+				Scene.createNewWorm(0, { gameSettings::LeftWall + 100 , gameSettings::GroundLevel }, WormDirection::Right);
 				Network.createLineServer();
 			}
 			else {
-				//drawtryingtoconnect()
-				Scene.createNewWorm(0, { gameSettings::LeftWall + 100 , gameSettings::GroundLevel }, WormDirection::Right);
+				AllegroTools.drawTryingToConnect();
+				Scene.createNewWorm(0, { gameSettings::LeftWall + 400 , gameSettings::GroundLevel }, WormDirection::Right);
 				Network.createLineClient(Network.getOtherIP(), gameSettings::port);
 			}
 
