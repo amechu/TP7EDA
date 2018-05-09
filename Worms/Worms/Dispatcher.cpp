@@ -51,6 +51,7 @@ void Dispatcher::Dispatch(Event Event, Scenario* Scene, AllegroTools* allegroToo
 			Scene->setWormState(Event, WormState::Walking);
 			Scene->directWorm(Event, WormDirection::Right);
 		}
+		Scene->setLastAction(REFRESHRIGHT, LOCAL);
 		Scene->Refresh(allegroTools);
 		cout << "REFRESHRIGHT" << endl; //DEBUG
 		break;
@@ -60,11 +61,13 @@ void Dispatcher::Dispatch(Event Event, Scenario* Scene, AllegroTools* allegroToo
 			Scene->setWormState(Event, WormState::Walking);
 			Scene->directWorm(Event, WormDirection::Left);
 		}
+		Scene->setLastAction(REFRESHLEFT, LOCAL);
 		Scene->Refresh(allegroTools);
 		cout << "REFRESHLEFT" << endl; //DEBUG
 		break;
 	}
 	case REFRESH: {
+		Scene->setLastAction(REFRESH, LOCAL);
 		Scene->Refresh(allegroTools);
 		cout << "REFRESH" << endl; //DEBUG
 		break;

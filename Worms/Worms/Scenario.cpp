@@ -32,6 +32,12 @@ std::vector<Worm> Scenario::getWormList()
 	return (this->Worms);
 }
 
+void Scenario::setLastAction(unsigned int id, unsigned int origin)
+{
+	this->lastAction.id = id;
+	this->lastAction.origin = origin;
+}
+
 void Scenario::moveLeft(Event event, AllegroTools* allegroTools)
 {
 	for (Worm& worm : this->Worms) {
@@ -106,8 +112,6 @@ void Scenario::Refresh(AllegroTools* allegroTools)
 	for (Worm& worm : this->Worms) {
 		worm.refresh();
 	}
-	this->lastAction.id = REFRESH;
-	this->lastAction.origin = LOCAL;
 	this->notify(allegroTools);
 }
 
