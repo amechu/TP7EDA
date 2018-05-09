@@ -507,6 +507,7 @@ Packet Network::sendAckr()
 Packet Network::rest()
 {
 	setLastEvent(ACK_RECEIVED);
+	lastPacketRecieved.header = ACK_;
 	return lastPacketRecieved;
 }
 
