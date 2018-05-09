@@ -233,7 +233,11 @@ void Network::say(Packet packet)
 	estado = WAIT_ACK;
 	sendInfo(lastPacketSent.makePacket(packet.header, packet.action, packet.id, packet.pos));
 	if (lastPacketSent.header == QUIT_) {
-		setLastEvent(QUIT_REQUEST_RECEIVED);
+		do {
+			lastPacketRecieved = waitAck();
+		} while (lastPacketRecieved.header != ACK_);
+		lastPacketRecieved.header = QUIT_;
+		lastPacketRecieved.id = 0;
 	}
 
 }
@@ -280,6 +284,12 @@ Packet Network::run(int ev)
 		switch (ev) {
 		case MOVE_REQUEST_RECEIVED:
 			estado = WAIT_REQUEST;
+			lastPacketSent = sendAck();
+			break;
+		case QUIT_REQUEST_RECEIVED:
+			estado = SHUTDOWN;
+			lastPacketRecieved.header = QUIT_;
+			lastPacketRecieved.id = 0;
 			lastPacketSent = sendAck();
 			break;
 		}
@@ -372,7 +382,6 @@ Packet Network::waitAck() {
 	std::string string, aux;
 	uint8_t* pointer;
 	lastPacketRecieved.header = 0;
-	static bool first = true;
 
 		do {
 			string = getInfo();
