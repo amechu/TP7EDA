@@ -31,6 +31,7 @@ public:
 	Packet waitReady(); //Espera un I_AM_READY
 	Packet waitRequest(); //Espera un evento
 	Packet waitAck();	//Espera un ACK
+	Packet waitAckForQuit();
 
 	//Connection functions
 	void acceptOrResolve(std::string port); //Se conecta dependiendo si uno es host o client

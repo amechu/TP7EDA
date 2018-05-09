@@ -233,11 +233,8 @@ void Network::say(Packet packet)
 	estado = WAIT_ACK;
 	sendInfo(lastPacketSent.makePacket(packet.header, packet.action, packet.id, packet.pos));
 	if (lastPacketSent.header == QUIT_) {
-		do {
-			lastPacketRecieved = waitAck();
-		} while (lastPacketRecieved.header != ACK_);
-		lastPacketRecieved.header = QUIT_;
-		lastPacketRecieved.id = 0;
+		lastPacketRecieved = waitAckForQuit();
+		pushToRecieved(lastPacketRecieved);
 	}
 
 }
@@ -407,6 +404,40 @@ Packet Network::waitAck() {
 		if (!good) {
 			lastPacketRecieved.header = 0;
 		}
+
+	return lastPacketRecieved;
+}
+
+Packet Network::waitAckForQuit()
+{
+	int i = 0, pos = 0;
+	bool check = false, good = false;
+	std::string string, aux;
+	uint8_t* pointer;
+	lastPacketRecieved.header = 0;
+
+	al_rest(0.5);
+	do {
+		string = getInfo();
+		if ((string.c_str())[0] == (char)(ACK_)) {
+			good = true;
+			pointer = (uint8_t*)(&(lastPacketRecieved.id));
+			for (int j = 0; j < 4; j++) {
+				pointer[j] = string[j + 2];
+			}
+			if (lastPacketRecieved.id == (0x0)) {
+				lastPacketRecieved.header = QUIT_;
+				lastPacketRecieved.id = 0;
+			}
+			else {
+				lastPacketRecieved = run(NET_ERROR);
+			}
+		}
+		i++;
+	} while (i < 5 && !good);
+	if (!good) {
+		lastPacketRecieved.header = 0;
+	}
 
 	return lastPacketRecieved;
 }

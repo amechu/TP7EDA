@@ -87,6 +87,5 @@ int main(int argc, char* argv[]) {
 			}
 		}
 	}
-	cin.get();
 	return 0;
 }
