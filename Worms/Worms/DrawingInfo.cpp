@@ -8,6 +8,7 @@ DrawingInfo::DrawingInfo()
 		this->WormWalk[i] = NULL;
 	for (int i = 0; i < 10; i++)
 		this->WormJump[i] = NULL;
+
 	this->Background = NULL;
 	this->WindowsBackground = NULL;
 

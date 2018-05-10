@@ -36,10 +36,10 @@ public:
 	
 
 	void toggle();
-	void moveLeft(); //Si la llamada a funcion fue llamada por refresh o por evento &0
-	void moveRight();//ya que si la tecla esta presionada cada entrada a esta funcion sera por evento
-	void jump();						//y para continuar el ciclo de caminata es necesario una invocacion a esta funcion (move)
-	void refresh();						//por evento. (Mirar event generator y funciones de move de Scene)
+	void moveLeft();
+	void moveRight();
+	void jump();
+	void refresh(); //Refresca todos los worms
 
 private:
 	long unsigned int id;

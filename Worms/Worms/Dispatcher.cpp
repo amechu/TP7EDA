@@ -42,7 +42,7 @@ void Dispatcher::Dispatch(Event Event, Scenario* Scene, AllegroTools* allegroToo
 	}
 	case REFRESHRIGHT: {
 		if (Scene->getWormState(Event) == WormState::Iddle) {
-			Scene->setWormState(Event, WormState::Walking);
+			Scene->setWormState(Event, WormState::Walking); //Cambio dirección y estado
 			Scene->directWorm(Event, WormDirection::Right);
 		}
 		Scene->setLastAction(REFRESHRIGHT, LOCAL);
@@ -51,7 +51,7 @@ void Dispatcher::Dispatch(Event Event, Scenario* Scene, AllegroTools* allegroToo
 	}
 	case REFRESHLEFT: {
 		if (Scene->getWormState(Event) == WormState::Iddle) {
-			Scene->setWormState(Event, WormState::Walking);
+			Scene->setWormState(Event, WormState::Walking); //Cambio dirección y estado
 			Scene->directWorm(Event, WormDirection::Left);
 		}
 		Scene->setLastAction(REFRESHLEFT, LOCAL);
@@ -64,7 +64,7 @@ void Dispatcher::Dispatch(Event Event, Scenario* Scene, AllegroTools* allegroToo
 		break;
 	}
 	case QUITLOCAL: {
-		Scene->Quit(allegroTools);
+		Scene->Quit(allegroTools); //Para mandar a networking
 		break;
 	}
 	case NOEVENT: {
@@ -75,7 +75,7 @@ void Dispatcher::Dispatch(Event Event, Scenario* Scene, AllegroTools* allegroToo
 		break;
 	}
 	case QUIT: {
-		allegroTools->drawOtherOneQuitted();
+		allegroTools->drawOtherOneQuitted(); //Si ya se mando quit y hubo ack
 		break;
 	}
 	}

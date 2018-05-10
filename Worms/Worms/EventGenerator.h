@@ -15,7 +15,7 @@ public:
 	void pushEvent(Event event);
 	Event fetchEvent();
 	Event transformAllegroEvent(AllegroTools* allegroTools);
-	Event transformNetworkEvent(Network* Network); //Recibe el paquete crudo de network y lo convierte a Event. Pensar si esta funcion esta bien aca. &0
+	Event transformNetworkEvent(Network* Network);
 	void checkIncomingEvents(AllegroTools* allegroTools, Network* Network);
 	std::queue<Event> eventQueue;
 

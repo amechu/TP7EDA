@@ -16,7 +16,7 @@ namespace gameSettings {
 	const double Velocity = 4.5;	//Worm velocity
 	const double Gravity = 0.24;	//Worm gravity
 	const float FPS = 50.0;			//Frames per second AKA gamespeed
-	const float networkTimeLimit = 100;
+	const float networkTimeLimit = 20;
 	const float SCREEN_W = 1920;	//Screen width
 	const float SCREEN_H = 696;		//Screen height
 	const std::string port = "15667";

@@ -29,6 +29,7 @@ public:
 	Point myWormPos;
 	std::vector<Worm> getWormList();
 	void setLastAction(unsigned int id, unsigned int origin);
+	bool isHost;
 
 
 

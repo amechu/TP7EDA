@@ -199,7 +199,6 @@
     <Image Include="wwalk-F4.png" />
     <Image Include="wwalk-F5.png" />
     <Image Include="wwalk-F6.png" />
-    <Image Include="wwalk-F7.png" />
     <Image Include="wwalk-F8.png" />
     <Image Include="wwalk-F9.png" />
   </ItemGroup>

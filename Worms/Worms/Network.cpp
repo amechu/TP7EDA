@@ -27,7 +27,7 @@ Network::~Network()
 
 void Network::networkProtocol()
 {
-	lastPacketRecieved = listen(); //corre la fsm hasta que vuelva al estado inicial.
+	lastPacketRecieved = listen(); //corre la fsm hasta que vuelva al estado de waiting request o shutdown.
 	if (lastPacketRecieved.header != 0) {
 		pushToRecieved(lastPacketRecieved);
 	}
@@ -93,45 +93,9 @@ void Network::createLineClient(std::string host, std::string port)
 	}
 }
 
-std::string Network::getInfoTimed(int limitInMs)
-{
-	Timer timer;
-	char buffer[100];
-	size_t lenght = 0;
-	boost::system::error_code error;
-
-	timer.start();
-
-	bool timeout = false;
-
-	do
-	{
-		lenght = this->socket->read_some(boost::asio::buffer(buffer), error);
-		timer.stop();
-
-		if (timer.getTime() > limitInMs && lenght == 0)
-		{														// Pido que lenght == 0 asi no lo paro mientras esta mandando
-			timeout = true;
-		}
-
-	} while (error && !timeout);
-
-	std::string retValue;
-
-	if (!timeout)
-	{
-		buffer[lenght] = 0;
-		retValue = buffer;
-	}
-	else
-		retValue = TIMEOUT;
-
-	return retValue;
-}
-
 std::string Network::getInfo()
 {
-	char buffer[100]; //usado solo para recibir iamready o ackr
+	char buffer[100];
 	size_t lenght = 0;
 	boost::system::error_code error;
 	std::string retValue;
@@ -148,7 +112,7 @@ std::string Network::getInfo()
 	return retValue;
 }
 void Network::sendInfo(std::string msg)
-{																//&0 hacer  que funque con server y no client
+{			
 	size_t lenght = 0;
 	boost::system::error_code error;
 
@@ -181,7 +145,7 @@ Packet Network::listen()
 	int timeoutcount = 0;
 
 	do {
-		if (estado == READYTOCONNECT) {
+		if (estado == READYTOCONNECT) { //Handshake
 			if (getIfHost() == gameSettings::HOST) {
 				sendInfo(lastPacketSent.makePacket(IAMRDY, 0, 0, myWormPos.X));
 				this->estado = WAIT_READY;
@@ -206,12 +170,12 @@ Packet Network::listen()
 				}
 			}
 		}
-		else if (estado == WAIT_REQUEST) {
+		else if (estado == WAIT_REQUEST) { //Espera un move o quit
 
 			lastPacketRecieved = waitRequest();
 
 		}
-		else if (estado == WAIT_ACK) {
+		else if (estado == WAIT_ACK) { //Espera un ack
 
 			lastPacketRecieved = waitAck();
 
@@ -232,7 +196,7 @@ void Network::say(Packet packet)
 {
 	estado = WAIT_ACK;
 	sendInfo(lastPacketSent.makePacket(packet.header, packet.action, packet.id, packet.pos));
-	timeoutTimer.start();
+	timeoutTimer.start(); //Para ver si hay timeout y hay que remandar
 	if (lastPacketSent.header == QUIT_) {
 		lastPacketRecieved = waitAckForQuit();
 		pushToRecieved(lastPacketRecieved);
@@ -240,7 +204,7 @@ void Network::say(Packet packet)
 
 }
 
-Packet Network::run(int ev)
+Packet Network::run(int ev) //FSM switch de switches perdón
 {
 	setLastEvent(ev);
 
@@ -394,7 +358,7 @@ Packet Network::waitAck() {
 			}
 		}
 		timeoutTimer.stop();
-		if (timeoutTimer.getTime() > 25 && timerIsOn) {
+		if (timeoutTimer.getTime() > gameSettings::networkTimeLimit && timerIsOn) { //Ve si se debe remandar o si hay timeout
 			timeoutcount++;
 			if (timeoutcount >= 5) {
 				lastPacketRecieved = run(NET_ERROR);

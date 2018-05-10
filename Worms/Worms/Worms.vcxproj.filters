@@ -205,9 +205,6 @@
     <Image Include="wwalk-F6.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="wwalk-F7.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="wwalk-F8.png">
       <Filter>Resource Files</Filter>
     </Image>

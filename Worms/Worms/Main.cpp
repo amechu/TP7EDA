@@ -48,11 +48,13 @@ int main(int argc, char* argv[]) {
 		{
 
 			if (Network.getIfHost() == HOST) { //Acciones si es server
+				Scene.isHost = true;
 				AllegroTools.drawWaitingForSomebody();
 				Scene.createNewWorm(0, { gameSettings::LeftWall + 100 , gameSettings::GroundLevel }, WormDirection::Right);
 				Network.createLineServer();
 			}
 			else {
+				Scene.isHost = false;
 				AllegroTools.drawTryingToConnect(); //Acciones si es client
 				Scene.createNewWorm(0, { gameSettings::LeftWall + 400 , gameSettings::GroundLevel }, WormDirection::Right);
 				Network.createLineClient(Network.getOtherIP(), gameSettings::port);

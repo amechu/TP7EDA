@@ -160,10 +160,10 @@ Event EventGenerator::transformNetworkEvent(Network* Network)
 			Event.type = TOGGLE;
 		}
 	}
-	else if ((Packet.header == ACK_) && (Packet.id == 0)) // caso del primer i'm ready
+	else if ((Packet.header == ACK_) && (Packet.id == 0))
 	{
 		if (!otherWormCreated) {
-			Event.type = NEWWORM; //ME LLEGO EL ACK QUE ENTENDIO CREO EL WORM
+			Event.type = NEWWORM;
 			Event.id = Network->getOtherWormPos();
 			otherWormCreated = true;
 		}
@@ -176,11 +176,11 @@ Event EventGenerator::transformNetworkEvent(Network* Network)
 	{
 		Event.type = QUIT;
 	}
-	else if ((Packet.header == IAMRDY)) // caso del primer i'm ready
+	else if ((Packet.header == IAMRDY))
 	{
 		if (!otherWormCreated) {
 			otherWormCreated = true;
-			Event.type = NEWWORM; //ME LLEGO EL ACK QUE ENTENDIO CREO EL WORM
+			Event.type = NEWWORM;
 			Event.id = Network->getOtherWormPos();
 		}
 	}

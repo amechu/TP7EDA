@@ -51,7 +51,7 @@ void Worm::setState(WormState state)
 void Worm::toggle()
 {
 	if (this->State == WormState::Iddle) {
-		if (this->Direction == WormDirection::Left) //Para mas tarde: pensar como hacer esto en una linea
+		if (this->Direction == WormDirection::Left)
 			this->Direction = WormDirection::Right;
 		else
 			this->Direction = WormDirection::Left;
