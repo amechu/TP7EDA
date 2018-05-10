@@ -60,8 +60,10 @@ void Worm::toggle()
 
 void Worm::moveLeft()
 {
+	if (this->State == WormState::Iddle) {
+		this->Direction = WormDirection::Left;
+	}
 	this->State = WormState::Walking;
-	this->Direction = WormDirection::Left;
 
 	this->tickCount++;
 
@@ -80,8 +82,10 @@ void Worm::moveLeft()
 
 void Worm::moveRight()
 {
+	if (this->State == WormState::Iddle) {
+		this->Direction = WormDirection::Right;
+	}
 	this->State = WormState::Walking;
-	this->Direction = WormDirection::Right;
 
 	this->tickCount++;
 

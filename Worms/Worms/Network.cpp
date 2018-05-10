@@ -152,11 +152,11 @@ void Network::sendInfo(std::string msg)
 	size_t lenght = 0;
 	boost::system::error_code error;
 
-	do {
+	lenght = this->socket->write_some(boost::asio::buffer(msg, msg.size()), error);
 
-		lenght = this->socket->write_some(boost::asio::buffer(msg, msg.size()), error);
-
-	} while (error);
+	if (error.value() == boost::asio::error::eof) {
+		run(NET_ERROR);
+	}
 }
 
 void Network::acceptOrResolve(std::string port)
@@ -232,6 +232,7 @@ void Network::say(Packet packet)
 {
 	estado = WAIT_ACK;
 	sendInfo(lastPacketSent.makePacket(packet.header, packet.action, packet.id, packet.pos));
+	timeoutTimer.start();
 	if (lastPacketSent.header == QUIT_) {
 		lastPacketRecieved = waitAckForQuit();
 		pushToRecieved(lastPacketRecieved);
@@ -244,7 +245,7 @@ Packet Network::run(int ev)
 	setLastEvent(ev);
 
 	if (ev == TIMEOUT1) {
-		estado = WAIT_REQUEST;
+		estado = WAIT_ACK;
 		lastPacketSent = reSend();
 	}
 
@@ -375,34 +376,32 @@ Packet Network::waitRequest() {
 Packet Network::waitAck() {
 
 	int i = 0, pos = 0;
-	bool check = false, good = false;
 	std::string string, aux;
 	uint8_t* pointer;
-	lastPacketRecieved.header = 0;
 
-		do {
-			string = getInfo();
-			if ((string.c_str())[0] == (char)(ACK_)) {
-				good = true;
-				pointer = (uint8_t*)(&(lastPacketRecieved.id));
-				for (int j = 0; j < 4; j++) {
-					pointer[j] = string[j + 2];
-				}
-				if (lastPacketRecieved.id == (0x0)) {
-					lastPacketRecieved = run(ACK_RECEIVED);
-				}
-				else {
-					lastPacketRecieved = run(NET_ERROR);
-				}
+		string = getInfo();
+		if ((string.c_str())[0] == (char)(ACK_)) {
+			pointer = (uint8_t*)(&(lastPacketRecieved.id));
+			for (int j = 0; j < 4; j++) {
+				pointer[j] = string[j + 2];
 			}
-			//else {
-			//	good = true;
-			//	lastPacketRecieved =  run(NET_ERROR);
-			//}
-			i++;
-		} while (i < 5 && !good);
-		if (!good) {
-			lastPacketRecieved.header = 0;
+			if (lastPacketRecieved.id == (0x0)) {
+				timeoutcount = 0;
+				lastPacketRecieved = run(ACK_RECEIVED);
+			}
+			else {
+				lastPacketRecieved = run(NET_ERROR);
+			}
+		}
+		timeoutTimer.stop();
+		if (timeoutTimer.getTime() > 25 && timerIsOn) {
+			timeoutcount++;
+			if (timeoutcount >= 5) {
+				lastPacketRecieved = run(NET_ERROR);
+			}
+			else {
+				lastPacketSent = reSend();
+			}
 		}
 
 	return lastPacketRecieved;

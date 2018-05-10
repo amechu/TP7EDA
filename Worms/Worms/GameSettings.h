@@ -7,7 +7,7 @@ namespace gameSettings {
 	const enum { I_AM_READY, ACK, MOVE, QUITPACKET, ERRORNET };
 	const enum { NONE, HOST, CLIENT, QUITTER };
 	const enum { Jump, Left, Right, TotalActions, Toggle }; //agrego toggle que indica que debe invertirse el worm
-	const int wormKeySet[TotalActions] = { ALLEGRO_KEY_W, ALLEGRO_KEY_A, ALLEGRO_KEY_D }; //Local worm keys (in allegro key format)
+	const int wormKeySet[TotalActions] = { ALLEGRO_KEY_UP, ALLEGRO_KEY_LEFT, ALLEGRO_KEY_RIGHT }; //Local worm keys (in allegro key format)
 	const int GroundLevel = 616;	//Ground level for worms
 	const int LeftWall = 685;		//Left boundary for worms
 	const int RightWall = 1170;		//Right boundary for worms

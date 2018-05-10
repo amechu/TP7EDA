@@ -71,6 +71,8 @@ public:
 
 	//Misc
 	Point myWormPos;
+	Timer timeoutTimer;
+	bool timerIsOn = false;
 
 private:
 
@@ -89,10 +91,10 @@ private:
 	std::queue<Packet> toSend;
 	std::queue<Packet> Recieved;
 
-
 	//FSM data
 	int estado = READYTOCONNECT;
 	int lastEvent;
+	int timeoutcount = 0;
 
 	//Auxiliary packet for storage
 	Packet lastPacketSent;

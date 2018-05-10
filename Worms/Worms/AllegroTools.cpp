@@ -201,21 +201,21 @@ void AllegroTools::drawTryingToConnect()
 void AllegroTools::drawOtherOneQuitted()
 {
 	al_clear_to_color(al_map_rgb(0, 0, 0));
-	al_draw_text(this->Font, al_color_name("white"), gameSettings::SCREEN_W / 2, gameSettings::SCREEN_H / 2 - 12, ALLEGRO_ALIGN_CENTRE, "The other player has quit.");
-	al_rest(2);
+	al_draw_text(this->Font, al_color_name("white"), gameSettings::SCREEN_W / 2, gameSettings::SCREEN_H / 2 - 12, ALLEGRO_ALIGN_CENTRE, "Someone has quit.");
 	al_flip_display();
+	al_rest(2);
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 	al_draw_text(this->Font, al_color_name("white"), gameSettings::SCREEN_W / 2, gameSettings::SCREEN_H / 2 - 12, ALLEGRO_ALIGN_CENTRE, "Quitting in 3..");
-	al_rest(1);
 	al_flip_display();
+	al_rest(1);
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 	al_draw_text(this->Font, al_color_name("white"), gameSettings::SCREEN_W / 2, gameSettings::SCREEN_H / 2 - 12, ALLEGRO_ALIGN_CENTRE, "Quitting in 2..");
-	al_rest(1);
 	al_flip_display();
+	al_rest(1);
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 	al_draw_text(this->Font, al_color_name("white"), gameSettings::SCREEN_W / 2, gameSettings::SCREEN_H / 2 - 12, ALLEGRO_ALIGN_CENTRE, "Quitting in 1..");
-	al_rest(2);
 	al_flip_display();
+	al_rest(1);
 }
 
 void AllegroTools::drawBigButton(std::string msg, int x, int y, ALLEGRO_BITMAP* bitmap, std::string color, bool selected)
